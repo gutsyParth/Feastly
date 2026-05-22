@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import type { IRestaurant } from "../types";
+import type { IMenuItem, IRestaurant } from "../types";
 import { restaurantService } from "../main";
 import AddRestaurant from "../components/AddRestaurant";
 import axios from "axios";
 import RestaurantProfile from "../components/RestaurantProfile";
+import MenuItems from "../components/MenuItems";
+import AddMenuItem from "../components/AddMenuItem";
 
 type SellerTab = "menu" | "add-item" | "sales";
 
@@ -36,6 +38,29 @@ const Restaurant = () => {
   useEffect(() => {
     fetchMyRestaurant();
   }, []);
+
+  const [menuItems, setMenuItems] = useState<IMenuItem[]>([]);
+
+  const fetchMenuItems = async (restaurantId: string) => {
+    try {
+      const { data } = await axios.get(
+        `${restaurantService}/api/item/all/${restaurantId}`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+
+      setMenuItems(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (restaurant?._id) {
+      fetchMenuItems(restaurant._id);
+    }
+  }, [restaurant]);
 
   if (loading)
     return (
@@ -85,22 +110,20 @@ const Restaurant = () => {
 
         <div className="p-6">
           {tab === "menu" && (
-            <div className="rounded-2xl border border-dashed border-[#E23774]/20 bg-white/40 p-10 text-center shadow-inner backdrop-blur-sm">
-              <p className="text-sm font-medium text-gray-600">Menu Items</p>
-            </div>
+            <MenuItems
+              items={menuItems}
+              onItemDeleted={() => {
+                fetchMenuItems(restaurant._id);
+              }}
+              isSeller={true}
+            />
           )}
 
           {tab === "add-item" && (
-            <div className="rounded-2xl border border-dashed border-[#E23774]/20 bg-white/40 p-10 text-center shadow-inner backdrop-blur-sm">
-              <p className="text-sm font-medium text-gray-600">Add Item Page</p>
-            </div>
+            <AddMenuItem onItemAdded={() => fetchMenuItems(restaurant._id)} />
           )}
 
-          {tab === "sales" && (
-            <div className="rounded-2xl border border-dashed border-[#E23774]/20 bg-white/40 p-10 text-center shadow-inner backdrop-blur-sm">
-              <p className="text-sm font-medium text-gray-600">Sales Page</p>
-            </div>
-          )}
+          {tab === "sales" && <p>Sales Page</p>}
         </div>
       </div>
     </div>

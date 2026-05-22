@@ -5,7 +5,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { authService } from "../main";
+import { authService, restaurantService } from "../main";
 import axios from "axios";
 import type { AppContextType } from "../types";
 import { Toaster } from "react-hot-toast";
@@ -43,9 +43,39 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     }
   }
 
+  const [cart, setCart] = useState([]);
+  const [subTotal, setSubTotal] = useState(0);
+  const [quantity, setQuantity] = useState(0);
+
+  async function fetchCart() {
+    if (!user || user.role !== "customer") {
+      return;
+    }
+
+    try {
+      const { data } = await axios.get(`${restaurantService}/api/cart/all`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      setCart(data.cart || []);
+      setSubTotal(data.subTotal || 0);
+      setQuantity(data.cartLength);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    if (user && user.role == "customer") {
+      fetchCart();
+    }
+  }, [user]);
 
   useEffect(() => {
     if (!navigator.geolocation)
@@ -100,6 +130,10 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setIsAuth,
         setLoading,
         setUser,
+        cart,
+        fetchCart,
+        quantity,
+        subTotal,
       }}
     >
       {children}
