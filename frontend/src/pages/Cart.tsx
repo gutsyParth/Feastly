@@ -111,7 +111,10 @@ const Cart = () => {
           const isLoading = loadingItemId === item._id;
 
           return (
-            <div className="flex items-center gap-4 rounded-xl bg-white p-4 shadow-sm">
+            <div
+              key={item._id}
+              className="flex items-center gap-4 rounded-xl bg-white p-4 shadow-sm"
+            >
               <img
                 src={item.image}
                 alt=""
