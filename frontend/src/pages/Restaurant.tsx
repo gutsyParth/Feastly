@@ -6,6 +6,7 @@ import axios from "axios";
 import RestaurantProfile from "../components/RestaurantProfile";
 import MenuItems from "../components/MenuItems";
 import AddMenuItem from "../components/AddMenuItem";
+import RestaurantOrders from "../components/RestaurantOrders";
 
 type SellerTab = "menu" | "add-item" | "sales";
 
@@ -80,6 +81,9 @@ const Restaurant = () => {
         onUpdate={setRestaurant}
         isSeller={true}
       />
+
+      <RestaurantOrders restaurantId={restaurant._id} />
+
       <div className="overflow-hidden rounded-3xl border border-white/40 bg-white/70 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:shadow-[0_25px_80px_rgba(226,55,116,0.25)]">
         <div className="flex border-b border-white/30 bg-white/40 backdrop-blur-md">
           {[
