@@ -16,7 +16,7 @@ const OrderSuccess = () => {
           sessionId,
         });
 
-        toast.success("Payment successfull 🎉");
+        toast.success("Payment successful 🎉");
       } catch (error) {
         toast.error("Stripe verification failed");
         console.log(error);

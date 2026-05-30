@@ -14,7 +14,7 @@ interface SocketContextType {
   socket: Socket | null;
 }
 
-const SocketConext = createContext<SocketContextType>({ socket: null });
+const SocketContext = createContext<SocketContextType>({ socket: null });
 
 export const SocketProvider = ({ children }: { children: ReactNode }) => {
   const { isAuth } = useAppData();
@@ -56,10 +56,10 @@ export const SocketProvider = ({ children }: { children: ReactNode }) => {
   }, [isAuth]);
 
   return (
-    <SocketConext.Provider value={{ socket: socketRef.current }}>
+    <SocketContext.Provider value={{ socket: socketRef.current }}>
       {children}
-    </SocketConext.Provider>
+    </SocketContext.Provider>
   );
 };
 
-export const useSocket = () => useContext(SocketConext);
+export const useSocket = () => useContext(SocketContext);
