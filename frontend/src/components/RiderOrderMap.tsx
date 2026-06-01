@@ -71,8 +71,14 @@ const Routing = ({
     }).addTo(map);
 
     return () => {
+  if (control && map) {
+    try {
       map.removeControl(control);
-    };
+    } catch (err) {
+      console.log("Routing cleanup skipped");
+    }
+  }
+};
   }, [from, to, map]);
 
   return null;
