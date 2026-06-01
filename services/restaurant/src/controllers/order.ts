@@ -86,7 +86,7 @@ export const createOrder = TryCatch(async (req: AuthenticatedRequest, res) => {
   let subtotal = 0;
 
   const orderItems = cartItems.map((cart) => {
-    const item = cart.itemId;
+    const item = cart.itemId as any;
 
     if (!item) {
       throw new Error("Invalid Cart Item");
@@ -374,7 +374,7 @@ export const getCurrentOrderForRider = TryCatch(async (req, res) => {
     return res.status(403).json({ message: "Forbidden" });
   }
 
-  const { riderId } = req.query;
+  const riderId = req.query.riderId as string;
 
   if (!riderId) {
     return res.status(400).json({ message: "Rider id is required" });

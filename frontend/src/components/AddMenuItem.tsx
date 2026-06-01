@@ -51,53 +51,89 @@ const AddMenuItem = ({ onItemAdded }: { onItemAdded: () => void }) => {
   };
 
   return (
-    <div className="max-w-md space-y-4 m-auto">
-      <h2 className="text-lg font-semibold">Add Menu Item</h2>
-      <input
-        type="text"
-        placeholder="Item name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="w-full rounded-lg border px-4 py-2 text-sm outline-none"
-      />
-      <textarea
-        placeholder="Item description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        className="w-full rounded-lg border px-4 py-2 text-sm outline-none"
-      />
-      <input
-        type="number"
-        placeholder="price ₹"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-        className="w-full rounded-lg border px-4 py-2 text-sm outline-none"
-      />
+    <div className="mx-auto w-full max-w-md rounded-3xl border border-gray-200 bg-white p-6 shadow-lg">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-gray-800">Add Menu Item</h2>
+        <p className="mt-1 text-sm text-gray-500">
+          Add a new food item to your restaurant menu
+        </p>
+      </div>
 
-      <label className="group flex cursor-pointer items-center gap-4 rounded-2xl border border-dashed border-[#E23774]/30 bg-white/60 p-5 text-sm text-gray-600 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#E23774]/60 hover:bg-white/80 hover:shadow-xl">
-        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-r from-[#FF512F] via-[#E23774] to-[#FF9966] shadow-md">
-          <BiUpload className="h-5 w-5 text-white" />
+      <div className="space-y-5">
+        <div>
+          <label className="mb-2 block text-sm font-medium text-gray-700">
+            Item Name
+          </label>
+          <input
+            type="text"
+            placeholder="Enter item name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-700 outline-none transition focus:border-red-400 focus:bg-white focus:ring-2 focus:ring-red-100"
+          />
         </div>
 
-        <span className="font-medium group-hover:text-[#E23774] transition-colors duration-300">
-          {image ? image.name : "Upload restaurant image"}
-        </span>
+        <div>
+          <label className="mb-2 block text-sm font-medium text-gray-700">
+            Description
+          </label>
+          <textarea
+            placeholder="Write a short description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows={4}
+            className="w-full resize-none rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-700 outline-none transition focus:border-red-400 focus:bg-white focus:ring-2 focus:ring-red-100"
+          />
+        </div>
 
-        <input
-          type="file"
-          accept="image/*"
-          hidden
-          onChange={(e) => setImage(e.target.files?.[0] || null)}
-        />
-      </label>
+        <div>
+          <label className="mb-2 block text-sm font-medium text-gray-700">
+            Price
+          </label>
+          <input
+            type="number"
+            placeholder="Enter price in ₹"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-700 outline-none transition focus:border-red-400 focus:bg-white focus:ring-2 focus:ring-red-100"
+          />
+        </div>
 
-      <button
-        disabled={loading}
-        onClick={handleSubmit}
-        className="w-full rounded-lg text-white text-sm py-3 font-semibold transition bg-red-500"
-      >
-        {loading ? "Adding..." : "Add Item"}
-      </button>
+        <div>
+          <label className="mb-2 block text-sm font-medium text-gray-700">
+            Upload Image
+          </label>
+
+          <label className="flex cursor-pointer items-center gap-4 rounded-2xl border-2 border-dashed border-red-200 bg-red-50 px-4 py-5 transition hover:border-red-400 hover:bg-red-100">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-500 text-white shadow-md">
+              <BiUpload className="text-xl" />
+            </div>
+
+            <div className="flex flex-col">
+              <span className="text-sm font-semibold text-gray-700">
+                {image ? image.name : "Choose image"}
+              </span>
+
+              <span className="text-xs text-gray-500">PNG, JPG or JPEG</span>
+            </div>
+
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={(e) => setImage(e.target.files?.[0] || null)}
+            />
+          </label>
+        </div>
+
+        <button
+          disabled={loading}
+          onClick={handleSubmit}
+          className="w-full rounded-xl bg-red-500 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-70"
+        >
+          {loading ? "Adding..." : "Add Item"}
+        </button>
+      </div>
     </div>
   );
 };
