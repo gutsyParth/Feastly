@@ -7,12 +7,13 @@ import { AppProvider } from "./context/AppContext.tsx";
 import "leaflet/dist/leaflet.css";
 import { SocketProvider } from "./context/SocketContext.tsx";
 
-export const authService = "http://localhost:4000";
-export const restaurantService = "http://localhost:4001";
-export const utilsService = "http://localhost:4002";
-export const realtimeService = "http://localhost:4004";
-export const riderService = "http://localhost:4005";
-export const adminService = "http://localhost:4006";
+export const authService = "https://feastly-auth-latest.onrender.com";
+export const restaurantService =
+  "https://feastly-restaurant-latest.onrender.com";
+export const utilsService = "https://feastly-utils-latest.onrender.com";
+export const realtimeService = "https://feastly-realtime-latest.onrender.com";
+export const riderService = "https://feastly-rider-latest.onrender.com";
+export const adminService = "https://feastly-admin-latest.onrender.com";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

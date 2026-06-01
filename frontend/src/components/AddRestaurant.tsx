@@ -51,65 +51,114 @@ const AddRestaurant = ({ fetchMyRestaurant }: props) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-pink-50 to-red-100 px-4 py-10">
-      <div className="mx-auto max-w-lg space-y-6 rounded-3xl border border-white/40 bg-white/70 p-8 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:shadow-[0_25px_80px_rgba(226,55,116,0.35)]">
-        <h1 className="text-center text-3xl font-extrabold tracking-tight bg-gradient-to-r from-[#FF512F] via-[#E23774] to-[#FF9966] bg-clip-text text-transparent">
-          Add Your Restaurant
-        </h1>
-        <input
-          type="text"
-          placeholder="Restaurant name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-2xl border border-white/40 bg-white/70 px-5 py-3 text-sm text-gray-700 shadow-sm outline-none backdrop-blur-md transition-all duration-300 placeholder:text-gray-400 focus:border-[#E23774]/50 focus:shadow-[0_0_25px_rgba(226,55,116,0.18)]"
-        />
-        <input
-          type="number"
-          placeholder="Contact Number"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          className="w-full rounded-2xl border border-white/40 bg-white/70 px-5 py-3 text-sm text-gray-700 shadow-sm outline-none backdrop-blur-md transition-all duration-300 placeholder:text-gray-400 focus:border-[#E23774]/50 focus:shadow-[0_0_25px_rgba(226,55,116,0.18)]"
-        />
-        <textarea
-          placeholder="Restaurant Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="min-h-[120px] w-full rounded-2xl border border-white/40 bg-white/70 px-5 py-3 text-sm text-gray-700 shadow-sm outline-none backdrop-blur-md transition-all duration-300 placeholder:text-gray-400 focus:border-[#E23774]/50 focus:shadow-[0_0_25px_rgba(226,55,116,0.18)]"
-        />
-        <label className="group flex cursor-pointer items-center gap-4 rounded-2xl border border-dashed border-[#E23774]/30 bg-white/60 p-5 text-sm text-gray-600 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#E23774]/60 hover:bg-white/80 hover:shadow-xl">
-          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-r from-[#FF512F] via-[#E23774] to-[#FF9966] shadow-md">
-            <BiUpload className="h-5 w-5 text-white" />
-          </div>
+    <div className="min-h-screen bg-gray-100 px-4 py-10">
+      <div className="mx-auto max-w-lg rounded-3xl bg-white p-8 shadow-xl">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-800">
+            Add Your Restaurant
+          </h1>
 
-          <span className="font-medium group-hover:text-[#E23774] transition-colors duration-300">
-            {image ? image.name : "Upload restaurant image"}
-          </span>
-
-          <input
-            type="file"
-            accept="image/*"
-            hidden
-            onChange={(e) => setImage(e.target.files?.[0] || null)}
-          />
-        </label>
-        <div className="flex items-start gap-4 rounded-2xl border border-white/40 bg-white/60 p-5 shadow-sm backdrop-blur-md">
-          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-r from-[#FF512F] via-[#E23774] to-[#FF9966] shadow-md">
-            <BiMapPin className="h-5 w-5 text-white" />
-          </div>
-
-          <div className="text-sm leading-relaxed text-gray-700">
-            {loadingLocation
-              ? "Fetching your location..."
-              : location?.formattedAddress || "Location not available"}
-          </div>
+          <p className="mt-2 text-sm text-gray-500">
+            Fill in the details to list your restaurant
+          </p>
         </div>
-        <button
-          className="w-full rounded-2xl bg-gradient-to-r from-[#FF512F] via-[#E23774] to-[#FF9966] py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_15px_40px_rgba(226,55,116,0.35)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
-          disabled={submitting}
-          onClick={handleSubmit}
-        >
-          {submitting ? "Submitting..." : "Add Restaurant"}
-        </button>
+
+        <div className="space-y-5">
+          <div>
+            <label className="mb-2 block text-sm font-medium text-gray-700">
+              Restaurant Name
+            </label>
+
+            <input
+              type="text"
+              placeholder="Enter restaurant name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-700 outline-none transition focus:border-red-400 focus:bg-white focus:ring-2 focus:ring-red-100"
+            />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium text-gray-700">
+              Contact Number
+            </label>
+
+            <input
+              type="number"
+              placeholder="Enter contact number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-700 outline-none transition focus:border-red-400 focus:bg-white focus:ring-2 focus:ring-red-100"
+            />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium text-gray-700">
+              Description
+            </label>
+
+            <textarea
+              placeholder="Write a short restaurant description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={5}
+              className="w-full resize-none rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-700 outline-none transition focus:border-red-400 focus:bg-white focus:ring-2 focus:ring-red-100"
+            />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium text-gray-700">
+              Restaurant Image
+            </label>
+
+            <label className="flex cursor-pointer items-center gap-4 rounded-2xl border-2 border-dashed border-red-200 bg-red-50 px-4 py-5 transition hover:border-red-400 hover:bg-red-100">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-500 text-white shadow-md">
+                <BiUpload className="text-xl" />
+              </div>
+
+              <div className="flex flex-col">
+                <span className="text-sm font-semibold text-gray-700">
+                  {image ? image.name : "Choose image"}
+                </span>
+
+                <span className="text-xs text-gray-500">PNG, JPG or JPEG</span>
+              </div>
+
+              <input
+                type="file"
+                accept="image/*"
+                hidden
+                onChange={(e) => setImage(e.target.files?.[0] || null)}
+              />
+            </label>
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium text-gray-700">
+              Restaurant Location
+            </label>
+
+            <div className="flex items-start gap-4 rounded-2xl border border-gray-200 bg-gray-50 p-4">
+              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-red-500 text-white shadow-sm">
+                <BiMapPin className="text-xl" />
+              </div>
+
+              <div className="flex-1 text-sm leading-relaxed text-gray-700">
+                {loadingLocation
+                  ? "Fetching your location..."
+                  : location?.formattedAddress || "Location not available"}
+              </div>
+            </div>
+          </div>
+
+          <button
+            className="w-full rounded-xl bg-red-500 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-70"
+            disabled={submitting}
+            onClick={handleSubmit}
+          >
+            {submitting ? "Submitting..." : "Add Restaurant"}
+          </button>
+        </div>
       </div>
     </div>
   );
