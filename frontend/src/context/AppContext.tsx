@@ -7,7 +7,7 @@ import {
 } from "react";
 import { authService, restaurantService } from "../main";
 import axios from "axios";
-import type { AppContextType } from "../types";
+import type { AppContextType, LocationType, User } from "../types";
 import { Toaster } from "react-hot-toast";
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -17,10 +17,10 @@ interface AppProviderProps {
 }
 
 export const AppProvider = ({ children }: AppProviderProps) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isAuth, setIsAuth] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState<LocationType | null>(null);
   const [loadingLocation, setLoadingLocation] = useState(true);
   const [city, setCity] = useState("Fetching Location...");
 

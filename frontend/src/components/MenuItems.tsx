@@ -79,8 +79,8 @@ const MenuItems = ({ items, onItemDeleted, isSeller }: MenuItemsProps) => {
 
       toast.success(data.message);
       fetchCart();
-    } catch (error) {
-      toast.error(error.response.data.message);
+    } catch (error: any) {
+      toast.error(error.response?.data?.message);
     } finally {
       setLoadingItemId(null);
     }
@@ -170,7 +170,7 @@ const MenuItems = ({ items, onItemDeleted, isSeller }: MenuItemsProps) => {
                   >
                     {isLoading ? (
                       <>
-                        <LoaderIcon size={18} className="animate-spin" />
+                        <LoaderIcon className="animate-spin" />
                         Adding...
                       </>
                     ) : (

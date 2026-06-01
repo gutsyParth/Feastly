@@ -63,11 +63,13 @@ const RestaurantPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-6 space-y-6">
-      <RestaurantProfile
-        restaurant={restaurant}
-        onUpdate={setRestaurant}
-        isSeller={false}
-      />
+      {restaurant && (
+        <RestaurantProfile
+          restaurant={restaurant}
+          onUpdate={setRestaurant}
+          isSeller={false}
+        />
+      )}
       <div className="rounded-xl bg-white shadow-sm p-4">
         <MenuItems
           isSeller={false}

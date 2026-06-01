@@ -14,7 +14,7 @@ const Login = () => {
 
   const navigate = useNavigate(); //ask
 
-  const responseGoogle = async (authResult) => {
+  const responseGoogle = async (authResult: any) => {
     setLoading(true);
     try {
       const result = await axios.post(`${authService}/api/auth/login`, {

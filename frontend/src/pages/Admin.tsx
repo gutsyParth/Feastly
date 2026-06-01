@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { adminService } from "../main";
 import axios from "axios";
 import AdminRestaurantCard from "../components/AdminRestaurantCard";

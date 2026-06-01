@@ -110,3 +110,9 @@ export interface IOrder {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface LocationType {
+  latitude: number;
+  longitude: number;
+  formattedAddress: string;
+}

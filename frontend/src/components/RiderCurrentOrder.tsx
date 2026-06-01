@@ -30,8 +30,8 @@ const RiderCurrentOrder = ({ order, onStatusUpdate }: Props) => {
 
       toast.success("Order status updated");
       onStatusUpdate();
-    } catch (error) {
-      toast.error(error.response.data.message);
+    } catch (error: any) {
+      toast.error(error.response?.data?.message);
     }
   };
 

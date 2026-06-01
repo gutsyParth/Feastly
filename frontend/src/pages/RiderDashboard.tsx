@@ -160,7 +160,6 @@ const RiderDashboard = () => {
   const [aadhaarNumber, setAadhaarNumber] = useState("");
   const [drivingLicenseNumber, setDrivingLicenseNumber] = useState("");
 
-  const [phone, setPhone] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
