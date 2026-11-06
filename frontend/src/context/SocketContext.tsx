@@ -5,7 +5,6 @@ import {
   useRef,
   type ReactNode,
 } from "react";
-
 import { io, Socket } from "socket.io-client";
 import { useAppData } from "./AppContext";
 import { realtimeService } from "../main";
@@ -31,18 +30,20 @@ export const SocketProvider = ({ children }: { children: ReactNode }) => {
     if (socketRef.current) return;
 
     const socket = io(realtimeService, {
-      auth: { token: localStorage.getItem("token") },
+      auth: {
+        token: localStorage.getItem("token"),
+      },
       transports: ["websocket"],
     });
 
     socketRef.current = socket;
 
     socket.on("connect", () => {
-      console.log("Socket connected", socket.id);
+      console.log("Socket Connected", socket.id);
     });
 
-    socket.on("disconnect", (reason) => {
-      console.log("Socket disconnected. Reason:", reason);
+    socket.on("disconnect", () => {
+      console.log("Socket Disconnected");
     });
 
     socket.on("connect_error", (err) => {
