@@ -52,7 +52,16 @@ const Routing = ({
   const map = useMap();
 
   useEffect(() => {
-    const control = L.Routing.control({
+    const routingApi = (window as Window & { L?: typeof L }).L?.Routing;
+    if (
+      typeof routingApi?.control !== "function" ||
+      typeof routingApi?.osrmv1 !== "function"
+    ) {
+      console.error("Leaflet Routing Machine is not initialized");
+      return;
+    }
+
+    const control = routingApi.control({
       waypoints: [L.latLng(from), L.latLng(to)],
 
       lineOptions: {
@@ -65,7 +74,7 @@ const Routing = ({
 
       createMarker: () => null,
 
-      router: L.Routing.osrmv1({
+      router: routingApi.osrmv1({
         serviceUrl: "https://router.project-osrm.org/route/v1",
       }),
     }).addTo(map);
